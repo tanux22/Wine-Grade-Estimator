@@ -1,25 +1,26 @@
 import os
 from pathlib import Path
 from src import logger
+from box import ConfigBox
 import json
+from typing import List
 import yaml
 import joblib
 from ensure import ensure_annotations
 from typing import Any, Dict, List, Union
-from box import ConfigBox
 from src.exception import CustomException
 import sys
 
 @ensure_annotations
 def read_yaml(file_path: Path) -> ConfigBox:
     """
-    Reads a YAML file and returns its content as a dictionary or list.
+    Reads a YAML file and returns its content as ConfigBox.
     
     Args:
         file_path (str): Path to the YAML file.
         
     Returns:
-        Union[Dict, List]: Content of the YAML file.
+        ConfigBox: Content of the YAML file.
     """
     try:
         with open(file_path, 'r') as file:
@@ -31,8 +32,8 @@ def read_yaml(file_path: Path) -> ConfigBox:
     
     
     
-@ensure_annotations
-def create_directories(path_to_dirs: list, verbose: bool = True) -> None:
+
+def create_directories(path_to_dirs: List[Path], verbose: bool = True) -> None:
     """
     Creates directories if they do not exist.
     
