@@ -2,16 +2,16 @@ from src.constants import CONFIG_FILE_PATH, PARAMS_FILE_PATH, SCHEMA_FILE_PATH
 from src.utils.common import read_yaml, create_directories
 from pathlib import Path
 from src.entity.config_entity import DataIngestionConfig
+from src.entity.config_entity import DataValidationConfig
 
 
 class ConfigurationManager:
     def __init__(self, config_file_path=CONFIG_FILE_PATH, params_file_path=PARAMS_FILE_PATH, schema_file_path=SCHEMA_FILE_PATH):
-        # ✅ Save parameters as instance variables
+
         self.config_file_path = config_file_path
         self.params_file_path = params_file_path
         self.schema_file_path = schema_file_path
 
-        # ✅ Now you can use them
         self.config = read_yaml(self.config_file_path)
         self.params = read_yaml(self.params_file_path)
         self.schema = read_yaml(self.schema_file_path)
@@ -31,6 +31,21 @@ class ConfigurationManager:
         )
         
         return data_ingestion_config
+    
+    
+    def get_data_validation_config(self) -> DataValidationConfig:
+        config = self.config.data_validation
+        schema = self.schema.COLUMNS.to_dict()
+        create_directories([config.root_dir])
+        
+        data_validation_config = DataValidationConfig(
+            root_dir=Path(config.root_dir),
+            STATUS_FILE=config.STATUS_FILE,
+            unzip_data_dir=Path(config.unzip_data_dir),
+            all_schema=schema
+        )
+        
+        return data_validation_config
     
     
     
