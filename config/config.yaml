@@ -30,4 +30,4 @@ model_evaluation:
   root_dir: artifacts/model_evaluation
   test_data_file_path: artifacts/data_transformation/test.csv
   model_path: artifacts/model_trainer/model.joblib
-  evaluation_report: artifacts/model_evaluation/evaluation_report.json
+  evaluation_report: artifacts/model_evaluation/evaluation_report.json 

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Wine Grade Estimator</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet" />
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+
+
+    <!-- Icons -->
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="static/css/styles.css">
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <section class="hero">
+        <div class="hero-overlay">
+            <div class="hero-text">
+                <h1>Wine Quality Prediction</h1>
+                <p class="tagline">Advanced analysis of wine characteristics to predict quality scores</p>
+                <p class="description">
+                    Our sophisticated algorithm analyzes key wine properties including acidity, sugar content, pH
+                    levels, and alcohol percentage to provide accurate quality predictions.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="form-section">
+        <div class="form-container">
+            <form action="/predict" method="post">
+                <h2>Wine Analysis Form</h2>
+                <p>Enter the wine characteristics below to get an accurate quality prediction</p>
+
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label for="fixed_acidity">Fixed Acidity</label>
+                        <input type="text" name="fixed_acidity" placeholder="e.g., 7.4" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="volatile_acidity">Volatile Acidity</label>
+                        <input type="text" name="volatile_acidity" placeholder="e.g., 0.7" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="citric_acid">Citric Acid</label>
+                        <input type="text" name="citric_acid" placeholder="e.g., 0.0" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="residual_sugar">Residual Sugar</label>
+                        <input type="text" name="residual_sugar" placeholder="e.g., 1.9" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="chlorides">Chlorides</label>
+                        <input type="text" name="chlorides" placeholder="e.g., 0.076" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="free_sulfur_dioxide">Free Sulfur Dioxide</label>
+                        <input type="text" name="free_sulfur_dioxide" placeholder="e.g., 11.0" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="total_sulfur_dioxide">Total Sulfur Dioxide</label>
+                        <input type="text" name="total_sulfur_dioxide" placeholder="e.g., 34.0" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="density">Density</label>
+                        <input type="text" name="density" placeholder="e.g., 0.9978" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="pH">pH Level</label>
+                        <input type="text" name="pH" placeholder="e.g., 3.51" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="sulphates">Sulphates</label>
+                        <input type="text" name="sulphates" placeholder="e.g., 0.56" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="alcohol">Alcohol Content (%)</label>
+                        <input type="text" name="alcohol" placeholder="e.g., 9.4" required>
+                    </div>
+                </div>
+
+                <div class="submit-button">
+                    <button type="submit" class="register">Predict Quality</button>
+                </div>
+
+
+                {% if prediction %}
+                <div class="prediction-card">
+                    <h3>Wine Quality Prediction</h3>
+                    <p class="prediction-value">The Wine Quality prediction is: {{ prediction }}</p>
+                </div>
+                {% endif %}
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="custom-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>Wine Quality Prediction</h4>
+                <p>
+                    Advanced machine learning algorithms for accurate wine quality assessment based on chemical
+                    composition analysis.
+                </p>
+            </div>
+            <div class="footer-column">
+                <h4>Features</h4>
+                <ul>
+                    <li>Real-time quality analysis</li>
+                    <li>11-parameter assessment</li>
+                    <li>Professional accuracy</li>
+                    <li>Easy-to-use interface</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Wine Parameters</h4>
+                <ul>
+                    <li>Acidity levels</li>
+                    <li>Sugar content</li>
+                    <li>pH balance</li>
+                    <li>Alcohol percentage</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
