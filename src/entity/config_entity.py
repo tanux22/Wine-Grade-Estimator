@@ -33,3 +33,18 @@ class ModelTrainerConfig:
     alpha: float 
     l1_ratio: float
     target_column: str
+    
+    
+
+@dataclass(frozen=True)
+class ModelEvaluationConfig:
+    """
+    Configuration for model evaluation.
+    """
+    root_dir: Path 
+    test_data_file_path: Path
+    model_path :Path
+    all_params : dict
+    evaluation_report : Path
+    target_column: str
+    mlflow_uri: str

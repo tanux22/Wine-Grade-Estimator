@@ -5,6 +5,7 @@ from src.entity.config_entity import DataIngestionConfig
 from src.entity.config_entity import DataValidationConfig
 from src.entity.config_entity import DataTransformationConfig
 from src.entity.config_entity import ModelTrainerConfig
+from src.entity.config_entity import ModelEvaluationConfig
 
 
 class ConfigurationManager:
@@ -83,6 +84,32 @@ class ConfigurationManager:
         )
         
         return model_trainer_config
+    
+    
+    
+    
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+        """
+        Returns the configuration for model evaluation.
+        """
+        config = self.config.model_evaluation
+        params = self.params.ElasticNet
+        schema = self.schema.TARGET_COLUMN
+        
+        create_directories([config.root_dir])
+
+        model_evaluation_config = ModelEvaluationConfig(
+            root_dir=Path(config.root_dir),
+            test_data_file_path=Path(config.test_data_file_path),
+            model_path=Path(config.model_path),
+            all_params=dict(params),
+            evaluation_report=Path(config.evaluation_report),
+            target_column=schema.name,
+            mlflow_uri="https://dagshub.com/atanushreddy/Wine-Grade-Estimator.mlflow"
+        )
+
+        return model_evaluation_config
+    
     
     
     

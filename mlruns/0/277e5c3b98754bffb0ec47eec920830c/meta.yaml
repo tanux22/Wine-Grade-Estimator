@@ -1,0 +1,14 @@
+artifact_uri: file:///home/tanush-reddy/workspace/Wine-Grade-Estimator/mlruns/0/277e5c3b98754bffb0ec47eec920830c/artifacts
+end_time: 1753860146777
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 277e5c3b98754bffb0ec47eec920830c
+run_name: casual-zebra-401
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753860146766
+status: 3
+tags: []
+user_id: tanush-reddy

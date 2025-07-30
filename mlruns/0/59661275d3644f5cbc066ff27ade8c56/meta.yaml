@@ -1,0 +1,14 @@
+artifact_uri: file:///home/tanush-reddy/workspace/Wine-Grade-Estimator/mlruns/0/59661275d3644f5cbc066ff27ade8c56/artifacts
+end_time: 1753860240141
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 59661275d3644f5cbc066ff27ade8c56
+run_name: whimsical-conch-497
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753860240128
+status: 3
+tags: []
+user_id: tanush-reddy

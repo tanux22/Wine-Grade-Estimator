@@ -40,7 +40,7 @@ def create_directories(path_to_dirs: List[Path], verbose: bool = True) -> None:
     Args:
         dirs (List[str]): List of directory paths to create.
     """
-    for dir_path in path_to_dirs:
+    for dir_path in path_to_dirs: 
         os.makedirs(dir_path, exist_ok=True)
         if verbose:
             logger.info(f"Directory created: {dir_path}")       
@@ -48,7 +48,7 @@ def create_directories(path_to_dirs: List[Path], verbose: bool = True) -> None:
     
     
 @ensure_annotations
-def save_json(file_path: Path, data: dict) -> None:
+def save_json(file_path: Path, data: dict) -> Union[None,bool]:
     """
     Saves data to a JSON file.
     
@@ -60,6 +60,7 @@ def save_json(file_path: Path, data: dict) -> None:
         with open(file_path, 'w') as file:
             json.dump(data, file, indent=4)
             logger.info(f"Data saved to JSON file: {file_path}")
+            return None
     except Exception as e:
         raise CustomException(e, sys) from e
     
