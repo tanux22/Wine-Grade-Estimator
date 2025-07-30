@@ -1,166 +1,241 @@
-# Wine-Grade-Estimator
 
-## Workflows
+# 🍷 Wine Grade Estimator
 
-1. Update config.yaml
-2. Update schema.yaml
-3. Update params.yaml
-4. Update the entity
-5. Update the configuration manager in src config
-6. Update the components
-7. Update the pipeline 
-8. Update the main.py
-9. Update the app.py
+A **Machine Learning** project that predicts the **quality of wine** using physicochemical data. It utilizes an **ElasticNet Regression** model trained via a modular ML pipeline with **MLflow tracking**. Integration with **DagsHub** allows experiment tracking in the cloud.
 
+---
 
+## 🔍 Overview
 
-# How to run?
-### STEPS:
+- 📈 Predicts wine quality (0–10) based on 11 features.
+- 🧠 Uses **ElasticNet** Regression (combination of Lasso and Ridge).
+- 🔧 Tuned with key hyperparameters: `alpha` and `l1_ratio`.
+- 📊 Logs metrics and models via **MLflow**.
+- 🌐 Deployed via a **Flask** web interface.
+- ☁️ Supports **DagsHub** integration for collaborative experiment tracking.
 
-Clone the repository
+---
+
+## 📌 Project Workflow
+
+1. Update `config.yaml`
+2. Update `schema.yaml`
+3. Update `params.yaml` (for `alpha`, `l1_ratio`, etc.)
+4. Update the `config_entity.py` (in `src/entity/`)
+5. Update `configuration_manager.py` (in `src/config/`)
+6. Implement/update components (e.g., ingestion, validation, transformation, training, evaluation)
+7. Update pipeline scripts (in `src/pipeline/`)
+8. Update `application.py` for full pipeline execution
+9. Update `app.py` for UI-based prediction
+
+---
+
+## 🧠 ML Model: ElasticNet
+
+ElasticNet is a linear regression model trained with both L1 and L2 regularization.
+
+### 📌 Hyperparameters Used:
+
+- `alpha`: Controls regularization strength
+- `l1_ratio`: Balance between L1 (Lasso) and L2 (Ridge)
+
+These are configurable via `params.yaml`.
+
+Example:
+
+```yaml
+ElasticNet:
+  alpha: 0.5
+  l1_ratio: 0.3
+````
+
+---
+
+## 🚀 How to Run the Project
+
+### STEP 01: Clone the Repository
 
 ```bash
-https://github.com/tanux22/Wine-Grade-Estimator.git
+git clone https://github.com/tanux22/Wine-Grade-Estimator.git
+cd Wine-Grade-Estimator
 ```
-### STEP 01- Create a conda environment after opening the repository
+
+---
+
+### STEP 02: Set Up a Python Virtual Environment
 
 ```bash
-conda create -n mlproj python=3.8 -y
+python3 -m venv myenv
+source myenv/bin/activate     # On Linux/macOS
+
+# On Windows (Command Prompt)
+myenv\Scripts\activate.bat
+
+# On Windows (PowerShell)
+myenv\Scripts\Activate.ps1
 ```
+
+> ✅ Add the environment to `.gitignore`:
 
 ```bash
-conda activate mlproj
+echo "myenv/" >> .gitignore
 ```
 
+---
 
-### STEP 02- install the requirements
+### STEP 03: Install Required Packages
+
 ```bash
 pip install -r requirements.txt
 ```
 
+---
+
+### STEP 04: Run the Web Application
 
 ```bash
-# Finally run the following command
 python app.py
 ```
 
-Now,
-```bash
-open up you local host and port
-```
+Then open [http://localhost:5000](http://localhost:5000) to use the prediction form.
 
+---
 
-
-## MLflow
-
-[Documentation](https://mlflow.org/docs/latest/index.html)
-
-
-##### cmd
-- mlflow ui
-
-### dagshub
-[dagshub](https://dagshub.com/)
-
-MLFLOW_TRACKING_URI=https://dagshub.com/atanushreddy/Wine-Grade-Estimator.mlflow \
-MLFLOW_TRACKING_USERNAME=atanushreddy \
-MLFLOW_TRACKING_PASSWORD=702b03e47aedac5981cd5ae775223366bc2b1711 \
-python script.py
-
-Run this to export as env variables:
+## 🧪 To Run the ML Pipeline
 
 ```bash
+python application.py
+```
 
-export MLFLOW_TRACKING_URI=https://dagshub.com/atanushreddy/Wine-Grade-Estimator.mlflow
+This will run all stages of the pipeline: ingestion → validation → transformation → training → evaluation.
 
-export MLFLOW_TRACKING_USERNAME=atanushreddy 
+---
 
-export MLFLOW_TRACKING_PASSWORD=702b03e47aedac5981cd5ae775223366bc2b1711
+## 📊 MLflow Setup
+
+**MLflow** is used to log parameters, metrics, and models.
+
+### 👉 To Launch MLflow Locally:
+
+```bash
+mlflow ui
+```
+
+Then go to: [http://127.0.0.1:5000](http://127.0.0.1:5000)
+
+---
+
+## ☁️ DagsHub Integration (Cloud MLflow)
+
+You can use **DagsHub** to view your runs remotely.
+
+### Step 1: Export Environment Variables
+
+```bash
+export MLFLOW_TRACKING_URI=https://dagshub.com/MLFLOW_TRACKING_USERNAME/Wine-Grade-Estimator.mlflow
+export MLFLOW_TRACKING_USERNAME=your username
+export MLFLOW_TRACKING_PASSWORD=your password
+```
+
+Or create a `.env` file:
+
+```ini
+MLFLOW_TRACKING_URI=ttps://dagshub.com/MLFLOW_TRACKING_USERNAME/Wine-Grade-Estimator.mlflow
+MLFLOW_TRACKING_USERNAME=your username
+MLFLOW_TRACKING_PASSWORD=your password
+```
+
+> Note: Make sure you don’t commit `.env` by adding it to `.gitignore`.
+
+---
+
+## 📁 Project Structure
+
+```
+Wine-Grade-Estimator/
+├── config/                          # Configuration files
+│   └── config.yaml
+├── logs/                            # Log files
+├── myenv/                           # Python virtual environment (add to .gitignore)
+├── research/                        # Jupyter notebooks for experimentation
+│   ├── data_ingestion.ipynb
+│   ├── data_transformation.ipynb
+│   ├── data_validation.ipynb
+│   ├── model_evaluation.ipynb
+│   ├── model_trainer.ipynb
+│   └── trials.ipynb
+├── src/                             # Core source code
+│   ├── components/                  # All pipeline components
+│   │   ├── data_ingestion.py
+│   │   ├── data_transformation.py
+│   │   ├── data_validation.py
+│   │   ├── model_evaluation.py
+│   │   └── model_trainer.py
+│   ├── config/                      # Configuration manager
+│   │   └── configuration.py
+│   ├── constants/                   # Constants (if needed)
+│   │   └── __init__.py
+│   ├── entity/                      # Data class entities
+│   │   └── config_entity.py
+│   ├── pipeline/                    # Orchestration pipelines
+│   │   ├── data_ingestion_pipeline.py
+│   │   ├── data_transformation_pipeline.py
+│   │   ├── data_validation_pipeline.py
+│   │   ├── model_evaluation_pipeline.py
+│   │   └── model_trainer_pipeline.py
+│   ├── utils/                       # Utility functions
+│   │   ├── common.py
+│   │   └── exception.py
+│   └── prediction.py                # Prediction handler
+├── static/                          # Static web assets
+│   ├── assets/images/
+│   │   └── hero.png
+│   ├── css/
+│   │   └── styles.css
+│   └── js/
+│       └── scripts.js
+├── templates/                       # HTML templates for Flask
+│   ├── index.html
+│   └── results.html
+├── .env                             # Environment variables (MLflow, DagsHub)
+├── .gitignore                       # Files/folders to ignore in Git
+├── app.py                           # Flask application
+├── application.py                   # Executes full pipeline
+├── Dockerfile                       # (Optional) For containerization
+├── LICENSE                          # License info
+├── README.md                        # Project overview
+├── params.yaml                      # Model and training parameters
+├── requirements.txt                 # Project dependencies
+├── schema.yaml                      # Input schema definition
+├── setup.py                         # Package setup
+├── test.py                          # For test cases
+└── winequality-data.zip             # Raw dataset (optional)
+
 
 ```
 
+---
 
+## 🧠 Features
 
-# AWS-CICD-Deployment-with-Github-Actions
+* End-to-end ML pipeline with modular architecture
+* Config-driven and reusable
+* Tracks all experiments with MLflow
+* Supports local and remote tracking (DagsHub)
+* Beautiful responsive web UI (HTML/CSS)
+* ElasticNet model with customizable hyperparameters
 
-## 1. Login to AWS console.
+---
 
-## 2. Create IAM user for deployment
+## 👨‍💻 Author
 
-	#with specific access
+**Tanush Reddy**
+🔗 [GitHub](https://github.com/tanux22)
 
-	1. EC2 access : It is virtual machine
+---
 
-	2. ECR: Elastic Container registry to save your docker image in aws
+## 📜 License
 
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
-	#Description: About the deployment
-
-	1. Build docker image of the source code
-
-	2. Push your docker image to ECR
-
-	3. Launch Your EC2 
-
-	4. Pull Your image from ECR in EC2
-
-	5. Lauch your docker image in EC2
-
-	#Policy:
-
-	1. AmazonEC2ContainerRegistryFullAccess
-
-	2. AmazonEC2FullAccess
-
-	
-## 3. Create ECR repo to store/save docker image
-    - Save the URI: 566373416292.dkr.ecr.ap-south-1.amazonaws.com/mlproj
-
-	
-## 4. Create EC2 machine (Ubuntu) 
-
-## 5. Open EC2 and Install docker in EC2 Machine:
-	
-	
-	#optinal
-
-	sudo apt-get update -y
-
-	sudo apt-get upgrade
-	
-	#required
-
-	curl -fsSL https://get.docker.com -o get-docker.sh
-
-	sudo sh get-docker.sh
-
-	sudo usermod -aG docker ubuntu
-
-	newgrp docker
-	
-# 6. Configure EC2 as self-hosted runner:
-    setting>actions>runner>new self hosted runner> choose os> then run command one by one
-
-
-# 7. Setup github secrets:
-
-    AWS_ACCESS_KEY_ID=
-
-    AWS_SECRET_ACCESS_KEY=
-
-    AWS_REGION = us-east-1
-
-    AWS_ECR_LOGIN_URI = demo>>  566373416292.dkr.ecr.ap-south-1.amazonaws.com
-
-    ECR_REPOSITORY_NAME = simple-app
-
-
-
-
-## About MLflow 
-MLflow
-
- - Its Production Grade
- - Trace all of your expriements
- - Logging & tagging your model
 
